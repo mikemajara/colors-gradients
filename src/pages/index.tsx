@@ -20,7 +20,7 @@ import ColorFormComponent from "../components/forms/color-form-component";
 import { useState } from "react";
 
 const Index = () => {
-  const [gradient, setGradient] = useState(["#FF0000", "#00FF00", "#0000FF"]);
+  const [gradient, setGradient] = useState(["#FF0000"]);
 
   const handleColorChange = (newGradient) => {
     setGradient(newGradient);
