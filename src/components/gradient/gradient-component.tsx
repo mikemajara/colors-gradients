@@ -1,3 +1,4 @@
+import { Flex } from "@chakra-ui/react";
 import React from "react";
 import GradientBox from "./gradient-box";
 
@@ -6,9 +7,9 @@ const GradientComponent = ({ gradient }) => {
   const colors = gradient.slice(-2);
 
   return (
-    <div style={{ height: "200px", width: "200px" }}>
+    <Flex w="full" h={"50vh"}>
       <GradientBox directions={directions} colors={colors} />
-    </div>
+    </Flex>
   );
 };
 

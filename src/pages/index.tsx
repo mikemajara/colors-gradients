@@ -25,13 +25,21 @@ const Index = () => {
   const handleColorChange = (newGradient) => {
     setGradient(newGradient);
   };
+
+  const handleDirectionChange = (direction) => {
+    setGradient([direction, ...gradient.slice(1)]);
+  };
+
   return (
     <Container height="100vh">
       <Header w="full">Header</Header>
       <Main border="1px solid black">
         <Stack direction={["column"]}>
-          <ColorFormComponent onSubmit={handleColorChange} />
           <GradientComponent gradient={gradient} />
+          <ColorFormComponent
+            onSubmit={handleColorChange}
+            onDirectionChange={handleDirectionChange}
+          />
         </Stack>
       </Main>
 
