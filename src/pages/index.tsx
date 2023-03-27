@@ -15,9 +15,15 @@ import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { Footer } from "../components/layout/footer";
 import { Header } from "../components/layout/header";
 import GradientBox from "../components/gradient/gradient-box";
-import GradientComponent from "../components/gradient/gradient-component";
-import ColorFormComponent from "../components/forms/color-form-component";
 import { useState } from "react";
+import GradientComponent from "../components/gradient/gradient-component";
+
+import dynamic from "next/dynamic";
+
+const ColorFormComponent = dynamic(
+  () => import("../components/forms/color-form-component"),
+  { ssr: false }
+);
 
 const Index = () => {
   const [gradient, setGradient] = useState(["#FF0000"]);
@@ -37,8 +43,8 @@ const Index = () => {
         <Stack direction={["column"]}>
           <GradientComponent gradient={gradient} />
           <ColorFormComponent
-            onSubmit={handleColorChange}
-            onDirectionChange={handleDirectionChange}
+          // onSubmit={handleColorChange}
+          // onDirectionChange={handleDirectionChange}
           />
         </Stack>
       </Main>

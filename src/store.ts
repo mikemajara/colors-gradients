@@ -1,38 +1,43 @@
-import create from "zustand";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-const useAppStorage = create((set) => {
-  const storageKey = "appStorage";
-  const savedState = JSON.parse(localStorage.getItem(storageKey));
+export type Combination = {
+  direction: string;
+  color1: string;
+  color2: string;
+};
 
-  const initialState = savedState || [];
+export type AppState = Combination[];
 
-  const saveState = (state) => {
-    localStorage.setItem(storageKey, JSON.stringify(state));
-  };
+type AppStorage = {
+  state: AppState;
+  addCombination: (combination: Combination) => void;
+  removeCombination: (index: number) => void;
+  updateCombination: (index: number, combination: Combination) => void;
+};
 
-  return {
-    state: initialState,
-    addCombination: (combination) =>
-      set((state) => {
-        const newState = [...state, combination];
-        saveState(newState);
-        return newState;
-      }),
-    removeCombination: (index) =>
-      set((state) => {
-        const newState = [...state];
-        newState.splice(index, 1);
-        saveState(newState);
-        return newState;
-      }),
-    updateCombination: (index, combination) =>
-      set((state) => {
-        const newState = [...state];
-        newState[index] = combination;
-        saveState(newState);
-        return newState;
-      }),
-  };
-});
-
-export default useAppStorage;
+export const useAppStorage = create(
+  persist<AppStorage>(
+    (set) => ({
+      state: [],
+      addCombination: (combination: Combination) => {
+        set((state) => ({ state: [...state.state, combination] }));
+      },
+      removeCombination: (index: number) => {
+        set((state) => ({
+          state: state.state.filter((_, i) => i !== index),
+        }));
+      },
+      updateCombination: (index: number, combination: Combination) => {
+        set((state) => {
+          const newState = [...state.state];
+          newState[index] = combination;
+          return { state: newState };
+        });
+      },
+    }),
+    {
+      name: "app-storage",
+    }
+  )
+);
