@@ -1,73 +1,74 @@
 import React, { useState } from "react";
-import { Box, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { ChromePicker } from "react-color";
 import { getClosestCSSColorName } from "../../utils/color-utils";
 
-const ColorFormComponent = ({ onSubmit }) => {
-  const [color1, setColor1] = useState("#ffffff");
-  const [color2, setColor2] = useState("#000000");
-  const [color3, setColor3] = useState("#000000");
+const ColorInput = ({ color, setColor }) => {
+  const [showPicker, setShowPicker] = useState(false);
 
-  const handleColorChange = (e, setColor) => {
-    const value = e.target.value;
-    setColor(value);
-    const closestColorName = getClosestCSSColorName(value);
-    e.target.setCustomValidity("");
-    e.target.setCustomValidity(
-      closestColorName ? `Closest CSS color: ${closestColorName}` : ""
-    );
-    e.target.reportValidity();
-    e.target.value = closestColorName ? closestColorName : value;
+  const handleColorChange = (color) => {
+    setColor(handleInputChange(color.hex));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({
-      color1,
-      color2,
-      color3,
-    });
+  const handleInputChange = (value) => {
+    console.log(`input value:`, value);
+    const closestColorName = getClosestCSSColorName(value);
+    console.log(`closest value:`, closestColorName);
+    return closestColorName ? closestColorName : value;
   };
 
   return (
-    <Box p="4">
-      <form onSubmit={handleSubmit}>
-        <Flex flexWrap="wrap" justifyContent="center" alignItems="center">
-          <FormControl>
-            <FormLabel>Color 1:</FormLabel>
-            <Input
-              type="text"
-              value={color1}
-              onChange={(e) => handleColorChange(e, setColor1)}
-              onFocus={(e) => (e.target.type = "color")}
-              onBlur={(e) => (e.target.type = "text")}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Color 2:</FormLabel>
-            <Input
-              type="text"
-              value={color2}
-              onChange={(e) => handleColorChange(e, setColor2)}
-              onFocus={(e) => (e.target.type = "color")}
-              onBlur={(e) => (e.target.type = "text")}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Color 3:</FormLabel>
-            <Input
-              type="text"
-              value={color3}
-              onChange={(e) => handleColorChange(e, setColor3)}
-              onFocus={(e) => (e.target.type = "color")}
-              onBlur={(e) => (e.target.type = "text")}
-            />
-          </FormControl>
-        </Flex>
-        <Flex justifyContent="center" alignItems="center" mt="4">
-          <Input type="submit" value="Generate Gradient" />
-        </Flex>
-      </form>
-    </Box>
+    <FormControl>
+      <FormLabel>{`Color ${color}`}</FormLabel>
+      <Input
+        type="text"
+        value={color}
+        onChange={handleColorChange}
+        onFocus={() => setShowPicker(true)}
+        onBlur={() => setShowPicker(false)}
+      />
+      {showPicker && (
+        <ChromePicker color={color} onChange={handleColorChange} />
+      )}
+    </FormControl>
+  );
+};
+
+const ColorFormComponent = ({ onSubmit }) => {
+  const [colors, setColors] = useState(["#000000", "", ""]);
+
+  const handleColorChange = (index, color) => {
+    setColors((prevColors) => {
+      const newColors = [...prevColors];
+      newColors[index] = color;
+      return newColors;
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const gradient = colors.filter(Boolean);
+    onSubmit(gradient);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <ColorInput
+        color={colors[0]}
+        setColor={(color) => handleColorChange(0, color)}
+      />
+      <ColorInput
+        color={colors[1]}
+        setColor={(color) => handleColorChange(1, color)}
+      />
+      <ColorInput
+        color={colors[2]}
+        setColor={(color) => handleColorChange(2, color)}
+      />
+      <Button mt={4} colorScheme="blue" type="submit">
+        Generate Gradient
+      </Button>
+    </form>
   );
 };
 
