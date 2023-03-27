@@ -29,7 +29,7 @@ const Index = () => {
     <Container height="100vh">
       <Header w="full">Header</Header>
       <Main border="1px solid black">
-        <Stack direction={["column", "row"]}>
+        <Stack direction={["column"]}>
           <ColorFormComponent onSubmit={handleColorChange} />
           <GradientComponent gradient={gradient} />
         </Stack>

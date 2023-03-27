@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+} from "@chakra-ui/react";
 import { ChromePicker } from "react-color";
 import { getClosestCSSColorName } from "../../utils/color-utils";
 
@@ -35,7 +41,7 @@ const ColorInput = ({ color, setColor }) => {
 };
 
 const ColorFormComponent = ({ onSubmit }) => {
-  const [colors, setColors] = useState(["#000000", "", ""]);
+  const [colors, setColors] = useState(["#000000", "", "", ""]);
 
   const handleColorChange = (index, color) => {
     setColors((prevColors) => {
@@ -53,18 +59,26 @@ const ColorFormComponent = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <ColorInput
-        color={colors[0]}
-        setColor={(color) => handleColorChange(0, color)}
-      />
-      <ColorInput
-        color={colors[1]}
-        setColor={(color) => handleColorChange(1, color)}
-      />
-      <ColorInput
-        color={colors[2]}
-        setColor={(color) => handleColorChange(2, color)}
-      />
+      <HStack>
+        <ColorInput
+          color={colors[0]}
+          setColor={(color) => handleColorChange(0, color)}
+        />
+        <ColorInput
+          color={colors[1]}
+          setColor={(color) => handleColorChange(1, color)}
+        />
+      </HStack>
+      <HStack>
+        <ColorInput
+          color={colors[2]}
+          setColor={(color) => handleColorChange(2, color)}
+        />
+        <ColorInput
+          color={colors[3]}
+          setColor={(color) => handleColorChange(2, color)}
+        />
+      </HStack>
       <Button mt={4} colorScheme="blue" type="submit">
         Generate Gradient
       </Button>

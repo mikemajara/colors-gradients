@@ -1,9 +1,10 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 
-const GradientBox = ({ color1, color2, color3 }) => {
-  const gradientColors = [color1, color2, color3].filter(Boolean);
-  const gradient = `linear-gradient(to right, ${gradientColors.join(", ")})`;
+const GradientBox = ({ directions, colors }) => {
+  const gradient = `linear-gradient(${directions.join(", ")}, ${colors.join(
+    ", "
+  )})`;
 
   return <Box w="100%" h="100%" borderRadius="md" bg={gradient} />;
 };
