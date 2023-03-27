@@ -44,14 +44,13 @@ const GradientComponent = () => {
         justify="center"
         align="center"
         h="50vh"
-        ref={canvasRef}
         borderWidth="1px"
         borderColor={"gray.700"}
         borderStyle="solid"
         borderRadius={"xl"}
         overflow="hidden"
       >
-        <GradientBox gradient={gradient} />
+        <GradientBox gradient={gradient} ref={canvasRef} />
       </Flex>
       <Flex justify="center" mt={8}>
         <Button
