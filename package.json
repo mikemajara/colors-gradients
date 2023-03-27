@@ -12,10 +12,12 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
     "framer-motion": "^6.3.0",
+    "html2canvas": "^1.4.1",
     "next": "latest",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "zustand": "^4.3.6"
   },
   "devDependencies": {

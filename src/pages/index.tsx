@@ -16,9 +16,9 @@ import { Footer } from "../components/layout/footer";
 import { Header } from "../components/layout/header";
 import GradientBox from "../components/gradient/gradient-box";
 import { useState } from "react";
-import GradientComponent from "../components/gradient/gradient-component";
 
 import dynamic from "next/dynamic";
+import GradientComponent from "../components/gradient/gradient-component";
 
 const ColorFormComponent = dynamic(
   () => import("../components/forms/color-form-component"),
@@ -28,20 +28,13 @@ const ColorFormComponent = dynamic(
 const Index = () => {
   const [gradient, setGradient] = useState(["#FF0000"]);
 
-  const handleColorChange = (newGradient) => {
-    setGradient(newGradient);
-  };
-
-  const handleDirectionChange = (direction) => {
-    setGradient([direction, ...gradient.slice(1)]);
-  };
-
   return (
     <Container height="100vh">
       <Header w="full">Header</Header>
       <Main border="1px solid black">
         <Stack direction={["column"]}>
-          <GradientComponent gradient={gradient} />
+          <GradientComponent />
+          {/* <GradientComponent gradient={gradient} /> */}
           <ColorFormComponent
           // onSubmit={handleColorChange}
           // onDirectionChange={handleDirectionChange}

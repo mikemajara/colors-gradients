@@ -1,8 +1,9 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, IconButton, Stack } from "@chakra-ui/react";
 import { useAppStorage } from "../../store";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
+import { IconAdd, IconTrash } from "../../icons";
 
 const ColorFormComponent = () => {
   const { state, addCombination, removeCombination, updateCombination } =
@@ -31,48 +32,51 @@ const ColorFormComponent = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {state?.map((combination, index) => (
-        <div key={index} style={{ display: "flex", gap: "16px" }}>
-          <DirectionInput
-            direction={combination.direction}
-            setDirection={(direction) =>
-              handleDirectionChange(index, direction)
-            }
-            onDirectionChange={(direction) =>
-              handleDirectionChange(index, direction)
-            }
-          />
-          <ColorInput
-            label={"Color 1"}
-            color={combination.color1}
-            setColor={(color) => handleColorChange(index, color, "color1")}
-          />
-          <ColorInput
-            label={"Color 2"}
-            color={combination.color2}
-            setColor={(color) => handleColorChange(index, color, "color2")}
-          />
+      <Stack>
+        {state?.map((combination, index) => (
+          <Stack direction="row" key={index} align="end">
+            <DirectionInput
+              direction={combination.direction}
+              setDirection={(direction) =>
+                handleDirectionChange(index, direction)
+              }
+              onDirectionChange={(direction) =>
+                handleDirectionChange(index, direction)
+              }
+            />
+            <ColorInput
+              label={"Color 1"}
+              color={combination.color1}
+              setColor={(color) => handleColorChange(index, color, "color1")}
+            />
+            <ColorInput
+              label={"Color 2"}
+              color={combination.color2}
+              setColor={(color) => handleColorChange(index, color, "color2")}
+            />
+            <IconButton
+              colorScheme="red"
+              type="button"
+              onClick={() => handleRemoveCombination(index)}
+              icon={<IconTrash />}
+              aria-label="trash"
+            />
+          </Stack>
+        ))}
+        <Stack direction={["row"]} align="center">
           <Button
-            mt={4}
-            colorScheme="red"
+            colorScheme="green"
             type="button"
-            onClick={() => handleRemoveCombination(index)}
+            onClick={handleAddCombination}
+            leftIcon={<IconAdd />}
           >
-            Remove Combination
+            Add Combination
           </Button>
-        </div>
-      ))}
-      <Button
-        mt={4}
-        colorScheme="green"
-        type="button"
-        onClick={handleAddCombination}
-      >
-        Add Combination
-      </Button>
-      <Button mt={4} colorScheme="blue" type="submit">
-        Generate Gradient
-      </Button>
+          {/* <Button colorScheme="blue" type="submit">
+            Generate Gradient
+          </Button> */}
+        </Stack>
+      </Stack>
     </form>
   );
 };
