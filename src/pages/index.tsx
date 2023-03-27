@@ -26,19 +26,13 @@ const ColorFormComponent = dynamic(
 );
 
 const Index = () => {
-  const [gradient, setGradient] = useState(["#FF0000"]);
-
   return (
     <Container height="100vh">
       <Header w="full">Header</Header>
       <Main border="1px solid black">
         <Stack direction={["column"]}>
           <GradientComponent />
-          {/* <GradientComponent gradient={gradient} /> */}
-          <ColorFormComponent
-          // onSubmit={handleColorChange}
-          // onDirectionChange={handleDirectionChange}
-          />
+          <ColorFormComponent />
         </Stack>
       </Main>
 
