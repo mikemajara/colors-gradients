@@ -34,7 +34,7 @@ const ColorInput = ({ label, color, setColor }) => {
         }}
       />
       {showPicker && (
-        <Stack position="absolute">
+        <Stack position="absolute" zIndex={1}>
           <Box position={"relative"} top={0} left={0}>
             <ChromePicker color={color} onChange={handleColorChange} />
           </Box>
