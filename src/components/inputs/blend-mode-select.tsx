@@ -30,6 +30,7 @@ const BlendModeSelect: React.FC<BlendModeSelectProps> = () => {
     "saturation",
     "color",
     "luminosity",
+    "unset",
   ];
 
   const handleBlendModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
