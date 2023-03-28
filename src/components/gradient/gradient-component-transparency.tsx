@@ -18,7 +18,7 @@ const GradientComponent = () => {
 
   const handleDownload = () => {
     domtoimage
-      .toPng(canvasRef.current)
+      .toPng(canvasRef.current, { bgcolor: "white" })
       .then(function (dataUrl) {
         const link = document.createElement("a");
         link.download = "gradient.png";
