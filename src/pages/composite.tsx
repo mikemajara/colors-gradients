@@ -13,7 +13,7 @@ import { Container } from "../components/layout/Container";
 import { Main } from "../components/layout/Main";
 import { DarkModeSwitch } from "../components/DarkModeSwitch";
 import { Footer } from "../components/layout/footer";
-import { Header } from "../components/layout/header";
+import { Navbar } from "../components/layout/navbar";
 import GradientBox from "../components/gradient/gradient-box";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ const ColorFormComponent = dynamic(
 const Index = () => {
   return (
     <Container height="100vh">
-      <Header w="full">Header</Header>
+      <Navbar w="full">Header</Navbar>
       <Main border="1px solid black">
         <Stack direction={["column"]}>
           <GradientComponent />

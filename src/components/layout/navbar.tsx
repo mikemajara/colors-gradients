@@ -1,0 +1,92 @@
+import React from "react";
+import {
+  Box,
+  Stack,
+  Flex,
+  HStack,
+  IconButton,
+  Link,
+  useBreakpointValue,
+  useColorModeValue,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+
+type Page = {
+  label: string;
+  href: string;
+};
+
+const pages: Page[] = [
+  { label: "Simple", href: "/simple" },
+  { label: "Composite", href: "/composite" },
+  { label: "Transparency", href: "/transparency" },
+];
+
+export const Navbar = () => {
+  const router = useRouter();
+  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
+  const display = useBreakpointValue({ base: "none", md: "flex" });
+  const bgColor = useColorModeValue("gray.100", "gray.900");
+  const color = useColorModeValue("gray.900", "gray.100");
+
+  return (
+    <Box bg={bgColor} px={[4, 6]} py={2} w="full">
+      <Flex alignItems="center" justifyContent="space-between">
+        <IconButton
+          aria-label="Open menu"
+          display={["flex", "none"]}
+          icon={<HamburgerIcon />}
+          onClick={onToggle}
+          variant="ghost"
+        />
+        <HStack as="nav" spacing={4} display={display}>
+          {pages.map((page) => (
+            <NextLink key={page.href} href={page.href} passHref>
+              <Link
+                color={color}
+                as={Button}
+                _hover={{ textDecor: "none" }}
+                fontWeight={router.asPath == page.href ? "bold" : "normal"}
+              >
+                {page.label}
+              </Link>
+            </NextLink>
+          ))}
+        </HStack>
+      </Flex>
+      <Box>
+        <IconButton
+          aria-label="Close menu"
+          display={["flex", "none"]}
+          icon={<CloseIcon />}
+          onClick={onClose}
+          position="absolute"
+          right="0.5rem"
+          top="0.5rem"
+          variant="ghost"
+        />
+        <Box
+          bg={bgColor}
+          mt={2}
+          py={2}
+          borderRadius="md"
+          display={[isOpen ? "block" : "none", "none"]}
+        >
+          <Stack spacing={2}>
+            {pages.map((page) => (
+              <NextLink key={page.href} href={page.href} passHref>
+                <Link fontSize="xl" color={color} onClick={onClose}>
+                  {page.label}
+                </Link>
+              </NextLink>
+            ))}
+          </Stack>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
