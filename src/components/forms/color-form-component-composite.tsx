@@ -9,6 +9,7 @@ import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
 import { IconAdd, IconTrash } from "../../icons";
 import PercentageInput from "../inputs/percentage-input";
+import BlendModeSelect from "../inputs/blend-mode-select";
 
 const ColorFormComponentComposite = () => {
   const state = useAppStorage((state) => state.composite);
@@ -106,6 +107,9 @@ const ColorFormComponentComposite = () => {
             />
           </Stack>
         ))}
+        <Stack>
+          <BlendModeSelect />
+        </Stack>
         <Stack direction={["row"]} align="center">
           <Button
             colorScheme="green"

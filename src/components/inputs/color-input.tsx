@@ -39,7 +39,6 @@ const ColorInput = ({ label, color, setColor }) => {
       {showPicker && (
         <Stack position="absolute">
           <Box position={"relative"} zIndex={2}>
-            {/* <chakra.div position="absolute" zIndex={2}> */}
             <chakra.div
               onClick={(e) => setShowPicker(false)}
               position="fixed"
@@ -49,7 +48,6 @@ const ColorInput = ({ label, color, setColor }) => {
               bottom={0}
             />
             <ChromePicker color={color} onChangeComplete={handleColorChange} />
-            {/* </chakra.div> */}
           </Box>
         </Stack>
       )}

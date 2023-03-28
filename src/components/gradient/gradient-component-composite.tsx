@@ -7,7 +7,10 @@ import html2canvas from "html2canvas";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
-  const { composite: state } = useAppStorage();
+  const {
+    composite: state,
+    settings: { blendMode },
+  } = useAppStorage();
 
   const toast = useToast();
   const canvasRef = useRef(null);
@@ -42,7 +45,7 @@ const GradientComponent = () => {
     return gradientString.join(", ");
   };
   const gradient = generateGradient(state);
-  console.log(`gradient: ${gradient}`);
+
   return (
     <>
       <Flex
@@ -55,7 +58,11 @@ const GradientComponent = () => {
         borderRadius={"xl"}
         overflow="hidden"
       >
-        <GradientBox gradient={gradient} ref={canvasRef} />
+        <GradientBox
+          gradient={gradient}
+          blendMode={blendMode}
+          ref={canvasRef}
+        />
       </Flex>
       <Flex justify="center" mt={8}>
         <Button

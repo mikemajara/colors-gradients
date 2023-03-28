@@ -27,6 +27,7 @@ type AppStorage = {
     index: number,
     combination: SimpleCombination | CompositeCombination
   ) => void;
+  updateSettings: (newSettings: Record<string, unknown>) => void;
 };
 
 export const useAppStorage = create(
@@ -68,6 +69,12 @@ export const useAppStorage = create(
 
           return newState;
         });
+      },
+      updateSettings: (newSettings) => {
+        set((state) => ({
+          ...state,
+          settings: { ...state.settings, ...newSettings },
+        }));
       },
     }),
     {
