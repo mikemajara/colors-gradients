@@ -21,15 +21,15 @@ import dynamic from "next/dynamic";
 import GradientComponent from "../components/gradient/gradient-component-simple";
 
 const ColorFormComponent = dynamic(
-  () => import("../components/forms/color-form-component-composite"),
+  () => import("../components/forms/color-form-component-simple"),
   { ssr: false }
 );
 
 const Index = () => {
   return (
     <Container height="100vh">
-      <Navbar />
-      <Main>
+      <Navbar w="full">Header</Navbar>
+      <Main border="1px solid black">
         <Stack direction={["column"]}>
           <GradientComponent />
           <ColorFormComponent />

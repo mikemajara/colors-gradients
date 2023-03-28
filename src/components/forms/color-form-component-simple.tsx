@@ -1,33 +1,46 @@
 import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
-import { useAppStorage } from "../../store";
+import { useAppStorage, SimpleCombination } from "../../store";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
 import { IconAdd, IconTrash } from "../../icons";
 
-const ColorFormComponent = () => {
-  const { state, addCombination, removeCombination, updateCombination } =
+const ColorFormComponentSimple = () => {
+  const state = useAppStorage((state) => state.simple);
+  const { addSimpleCombination, removeCombination, updateCombination } =
     useAppStorage();
 
   const handleAddCombination = () => {
-    addCombination({ direction: "to right", color1: "#000000", color2: "" });
+    const combination: SimpleCombination = {
+      direction: "to right",
+      color1: "#000000",
+      color2: "",
+    };
+    addSimpleCombination(combination);
   };
 
-  const handleRemoveCombination = (index) => {
-    removeCombination(index);
+  const handleRemoveCombination = (index: number) => {
+    removeCombination("simple", index);
   };
 
-  const handleDirectionChange = (index, direction) => {
-    updateCombination(index, { ...state[index], direction });
+  const handleDirectionChange = (index: number, direction: string) => {
+    updateCombination("simple", index, { ...state[index], direction });
   };
 
-  const handleColorChange = (index, color, colorType) => {
-    updateCombination(index, { ...state[index], [colorType]: color });
+  const handleColorChange = (
+    index: number,
+    color: string,
+    colorType: "color1" | "color2"
+  ) => {
+    updateCombination("simple", index, {
+      ...state[index],
+      [colorType]: color,
+    });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(state);
+    // console.log(state);
   };
 
   return (
@@ -81,4 +94,4 @@ const ColorFormComponent = () => {
   );
 };
 
-export default ColorFormComponent;
+export default ColorFormComponentSimple;
