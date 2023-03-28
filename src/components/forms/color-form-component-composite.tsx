@@ -1,30 +1,37 @@
 import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
-import { useAppStorage, SimpleCombination } from "../../store";
+import {
+  useAppStorage,
+  SimpleCombination,
+  CompositeCombination,
+} from "../../store";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
 import { IconAdd, IconTrash } from "../../icons";
+import PercentageInput from "../inputs/percentage-input";
 
-const SimpleColorFormComponent = () => {
-  const state = useAppStorage((state) => state.simple);
-  const { addSimpleCombination, removeCombination, updateCombination } =
+const ColorFormComponentComposite = () => {
+  const state = useAppStorage((state) => state.composite);
+  const { addCompositeCombination, removeCombination, updateCombination } =
     useAppStorage();
 
   const handleAddCombination = () => {
-    const combination: SimpleCombination = {
+    const combination: CompositeCombination = {
       direction: "to right",
       color1: "#000000",
+      percentage1: "50%",
       color2: "",
+      percentage2: "50%",
     };
-    addSimpleCombination(combination);
+    addCompositeCombination(combination);
   };
 
   const handleRemoveCombination = (index: number) => {
-    removeCombination("simple", index);
+    removeCombination("composite", index);
   };
 
   const handleDirectionChange = (index: number, direction: string) => {
-    updateCombination("simple", index, { ...state[index], direction });
+    updateCombination("composite", index, { ...state[index], direction });
   };
 
   const handleColorChange = (
@@ -32,9 +39,20 @@ const SimpleColorFormComponent = () => {
     color: string,
     colorType: "color1" | "color2"
   ) => {
-    updateCombination("simple", index, {
+    updateCombination("composite", index, {
       ...state[index],
       [colorType]: color,
+    });
+  };
+
+  const handlePercentageChange = (
+    index: number,
+    percentage: string,
+    percentageType: "percentage1" | "percentage2"
+  ) => {
+    updateCombination("composite", index, {
+      ...state[index],
+      [percentageType]: percentage,
     });
   };
 
@@ -62,10 +80,22 @@ const SimpleColorFormComponent = () => {
               color={combination.color1}
               setColor={(color) => handleColorChange(index, color, "color1")}
             />
+            <PercentageInput
+              percentage={combination.percentage1}
+              setPercentage={(percentage) =>
+                handlePercentageChange(index, percentage, "percentage1")
+              }
+            />
             <ColorInput
               label={"Color 2"}
               color={combination.color2}
               setColor={(color) => handleColorChange(index, color, "color2")}
+            />
+            <PercentageInput
+              percentage={combination.percentage2}
+              setPercentage={(percentage) =>
+                handlePercentageChange(index, percentage, "percentage2")
+              }
             />
             <IconButton
               colorScheme="red"
@@ -85,13 +115,13 @@ const SimpleColorFormComponent = () => {
           >
             Add Combination
           </Button>
-          {/* <Button colorScheme="blue" type="submit">
+          <Button colorScheme="blue" type="submit">
             Generate Gradient
-          </Button> */}
+          </Button>
         </Stack>
       </Stack>
     </form>
   );
 };
 
-export default SimpleColorFormComponent;
+export default ColorFormComponentComposite;
