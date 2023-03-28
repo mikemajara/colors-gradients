@@ -15,17 +15,30 @@ export type CompositeCombination = {
   percentage2: string;
 };
 
+export type TransparentCombination = {
+  direction: string;
+  color: string;
+  percentage: string;
+};
+
+export type GenerationType = "simple" | "composite" | "transparent";
+
 type AppStorage = {
   simple: SimpleCombination[];
   composite: CompositeCombination[];
+  transparent: TransparentCombination[];
   settings: Record<string, unknown>;
   addSimpleCombination: (combination: SimpleCombination) => void;
   addCompositeCombination: (combination: CompositeCombination) => void;
-  removeCombination: (type: "simple" | "composite", index: number) => void;
+  addTransparentCombination: (combination: TransparentCombination) => void;
+  removeCombination: (type: GenerationType, index: number) => void;
   updateCombination: (
-    type: "simple" | "composite",
+    type: GenerationType,
     index: number,
-    combination: SimpleCombination | CompositeCombination
+    combination:
+      | SimpleCombination
+      | CompositeCombination
+      | TransparentCombination
   ) => void;
   updateSettings: (newSettings: Record<string, unknown>) => void;
 };
@@ -35,6 +48,7 @@ export const useAppStorage = create(
     (set) => ({
       simple: [],
       composite: [],
+      transparent: [],
       settings: {},
       addSimpleCombination: (combination: SimpleCombination) => {
         set((state) => ({
@@ -48,13 +62,21 @@ export const useAppStorage = create(
           composite: [...state.composite, combination],
         }));
       },
+      addTransparentCombination: (combination: TransparentCombination) => {
+        set((state) => ({
+          ...state,
+          transparent: [...state.transparent, combination],
+        }));
+      },
       removeCombination: (type, index) => {
         set((state) => ({
           ...state,
           [type]:
             type === "simple"
               ? state.simple.filter((_, i) => i !== index)
-              : state.composite.filter((_, i) => i !== index),
+              : type === "composite"
+              ? state.composite.filter((_, i) => i !== index)
+              : state.transparent.filter((_, i) => i !== index),
         }));
       },
       updateCombination: (type, index, combination) => {
@@ -62,7 +84,9 @@ export const useAppStorage = create(
           const newCombination =
             type === "simple"
               ? (combination as SimpleCombination)
-              : (combination as CompositeCombination);
+              : type === "transparent"
+              ? (combination as CompositeCombination)
+              : (combination as TransparentCombination);
 
           const newState = { ...state };
           newState[type][index] = newCombination;

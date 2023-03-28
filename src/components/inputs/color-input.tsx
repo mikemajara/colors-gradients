@@ -17,13 +17,6 @@ const ColorInput = ({ label, color, setColor }) => {
     setColor(color.hex);
   };
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
-    const closestColorName = getClosestCSSColorName(value);
-    // setColor(closestColorName ? closestColorName : value);
-    setColor(value);
-  };
-
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>

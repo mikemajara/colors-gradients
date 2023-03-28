@@ -2,12 +2,7 @@ import React from "react";
 import { Select } from "@chakra-ui/react";
 import { useAppStorage } from "../../store";
 
-type BlendModeSelectProps = {
-  blendMode: string;
-  setBlendMode: (blendMode: string) => void;
-};
-
-const BlendModeSelect: React.FC<BlendModeSelectProps> = () => {
+const BlendModeSelect = () => {
   const {
     updateSettings,
     settings: { blendMode },

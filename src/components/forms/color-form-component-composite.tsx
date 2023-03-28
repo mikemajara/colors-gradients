@@ -59,7 +59,7 @@ const ColorFormComponentComposite = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(state);
+    // console.log(state);
   };
 
   return (
@@ -81,22 +81,10 @@ const ColorFormComponentComposite = () => {
               color={combination.color1}
               setColor={(color) => handleColorChange(index, color, "color1")}
             />
-            <PercentageInput
-              percentage={combination.percentage1}
-              setPercentage={(percentage) =>
-                handlePercentageChange(index, percentage, "percentage1")
-              }
-            />
             <ColorInput
               label={"Color 2"}
               color={combination.color2}
               setColor={(color) => handleColorChange(index, color, "color2")}
-            />
-            <PercentageInput
-              percentage={combination.percentage2}
-              setPercentage={(percentage) =>
-                handlePercentageChange(index, percentage, "percentage2")
-              }
             />
             <IconButton
               colorScheme="red"

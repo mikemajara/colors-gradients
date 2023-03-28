@@ -1,40 +1,49 @@
 import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
-import { useAppStorage, SimpleCombination } from "../../store";
+import {
+  useAppStorage,
+  SimpleCombination,
+  TransparentCombination,
+} from "../../store";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
 import { IconAdd, IconTrash } from "../../icons";
+import PercentageInput from "../inputs/percentage-input";
+import BlendModeSelect from "../inputs/blend-mode-select";
 
-const ColorFormComponentSimple = () => {
-  const state = useAppStorage((state) => state.simple);
-  const { addSimpleCombination, removeCombination, updateCombination } =
+const ColorFormComponentTransparency = () => {
+  const state = useAppStorage((state) => state.transparent);
+  const { addTransparentCombination, removeCombination, updateCombination } =
     useAppStorage();
 
   const handleAddCombination = () => {
-    const combination: SimpleCombination = {
+    const combination: TransparentCombination = {
       direction: "to right",
-      color1: "#000000",
-      color2: "",
+      color: "#000000",
+      percentage: "50%",
     };
-    addSimpleCombination(combination);
+    addTransparentCombination(combination);
   };
 
   const handleRemoveCombination = (index: number) => {
-    removeCombination("simple", index);
+    removeCombination("transparent", index);
   };
 
   const handleDirectionChange = (index: number, direction: string) => {
-    updateCombination("simple", index, { ...state[index], direction });
+    updateCombination("transparent", index, { ...state[index], direction });
   };
 
-  const handleColorChange = (
-    index: number,
-    color: string,
-    colorType: "color1" | "color2"
-  ) => {
-    updateCombination("simple", index, {
+  const handleColorChange = (index: number, color: string) => {
+    updateCombination("transparent", index, {
       ...state[index],
-      [colorType]: color,
+      color,
+    });
+  };
+
+  const handlePercentageChange = (index: number, percentage: string) => {
+    updateCombination("transparent", index, {
+      ...state[index],
+      percentage,
     });
   };
 
@@ -58,14 +67,15 @@ const ColorFormComponentSimple = () => {
               }
             />
             <ColorInput
-              label={"Color 1"}
-              color={combination.color1}
-              setColor={(color) => handleColorChange(index, color, "color1")}
+              label={"Color"}
+              color={combination.color}
+              setColor={(color) => handleColorChange(index, color)}
             />
-            <ColorInput
-              label={"Color 2"}
-              color={combination.color2}
-              setColor={(color) => handleColorChange(index, color, "color2")}
+            <PercentageInput
+              percentage={combination.percentage}
+              setPercentage={(percentage) =>
+                handlePercentageChange(index, percentage)
+              }
             />
             <IconButton
               colorScheme="red"
@@ -76,6 +86,9 @@ const ColorFormComponentSimple = () => {
             />
           </Stack>
         ))}
+        <Stack>
+          <BlendModeSelect />
+        </Stack>
         <Stack direction={["row"]} align="center">
           <Button
             colorScheme="green"
@@ -85,13 +98,13 @@ const ColorFormComponentSimple = () => {
           >
             Add Combination
           </Button>
-          {/* <Button colorScheme="blue" type="submit">
+          <Button colorScheme="blue" type="submit">
             Generate Gradient
-          </Button> */}
+          </Button>
         </Stack>
       </Stack>
     </form>
   );
 };
 
-export default ColorFormComponentSimple;
+export default ColorFormComponentTransparency;

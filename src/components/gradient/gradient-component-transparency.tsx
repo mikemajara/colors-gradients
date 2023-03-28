@@ -8,7 +8,7 @@ import domtoimage from "dom-to-image";
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
   const {
-    composite: state,
+    transparent: state,
     settings: { blendMode = "unset" },
   } = useAppStorage();
 
@@ -37,14 +37,16 @@ const GradientComponent = () => {
   };
 
   const generateGradient = (state) => {
-    const gradientString = state?.map(({ direction, color1, color2 }) => {
-      return direction && color1 && color2
-        ? `linear-gradient(${direction}, ${color1}, ${color2})`
-        : ``;
+    const gradientString = state?.map(({ direction, color, percentage }) => {
+      const percentageNumber = parseInt(percentage.replace("%", ""));
+      return `linear-gradient(${direction}, ${color} ${percentage}, transparent)`;
     });
     return gradientString.join(", ");
   };
   const gradient = generateGradient(state);
+
+  // background: linear-gradient(red, transparent), linear-gradient(to top left, lime, transparent), linear-gradient(to top right, blue, transparent);
+  //   background-blend-mode: color;
 
   return (
     <>
