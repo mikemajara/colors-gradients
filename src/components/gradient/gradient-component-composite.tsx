@@ -9,26 +9,30 @@ const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
   const {
     composite: state,
-    settings: { blendMode },
+    settings: { blendMode = "unset" },
   } = useAppStorage();
 
   const toast = useToast();
   const canvasRef = useRef(null);
 
   const handleDownload = () => {
-    html2canvas(canvasRef.current).then((canvas) => {
-      setCanvasUrl(canvas.toDataURL());
-      const link = document.createElement("a");
-      link.download = "gradient.png";
-      link.href = canvas.toDataURL();
-      link.click();
-      toast({
-        title: "Download started",
-        description: "Your gradient has been downloaded.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
+    const canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 600;
+    const ctx = canvas.getContext("2d");
+    ctx.globalCompositeOperation = blendMode as GlobalCompositeOperation;
+    ctx.drawImage(canvasRef.current, 0, 0);
+
+    const link = document.createElement("a");
+    link.download = "gradient.png";
+    link.href = canvas.toDataURL();
+    link.click();
+    toast({
+      title: "Download started",
+      description: "Your gradient has been downloaded.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
     });
   };
 
