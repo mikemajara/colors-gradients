@@ -179,3 +179,55 @@ export const getClosestCSSColorName = (hexColor) => {
 
   return closestColorName;
 };
+
+export function getRandomHexColor(): string {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+}
+
+const blendModes = [
+  "normal",
+  "multiply",
+  "screen",
+  "overlay",
+  "darken",
+  "lighten",
+  "color-dodge",
+  "color-burn",
+  "hard-light",
+  "soft-light",
+  "difference",
+  "exclusion",
+  "hue",
+  "saturation",
+  "color",
+  "luminosity",
+];
+
+function getRandomBlendMode(): string {
+  const randomIndex = Math.floor(Math.random() * blendModes.length);
+  return blendModes[randomIndex];
+}
+
+export function getRandomPercentage(): string {
+  const randomInt = Math.floor(Math.random() * 101);
+  return `${randomInt}%`;
+}
+
+export const getRandomDirection = (): string => {
+  const directions = [
+    "to top",
+    "to top right",
+    "to right",
+    "to bottom right",
+    "to bottom",
+    "to bottom left",
+    "to left",
+    "to top left",
+  ];
+  return directions[Math.floor(Math.random() * directions.length)];
+};

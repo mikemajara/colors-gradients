@@ -7,9 +7,14 @@ import {
 } from "../../store";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
-import { IconAdd, IconTrash } from "../../icons";
+import { IconAdd, IconShuffle, IconTrash } from "../../icons";
 import PercentageInput from "../inputs/percentage-input";
 import BlendModeSelect from "../inputs/blend-mode-select";
+import {
+  getRandomDirection,
+  getRandomHexColor,
+  getRandomPercentage,
+} from "../../utils/color-utils";
 
 const ColorFormComponentTransparency = () => {
   const state = useAppStorage((state) => state.transparent);
@@ -23,6 +28,15 @@ const ColorFormComponentTransparency = () => {
       percentage: "50%",
     };
     addTransparentCombination(combination);
+  };
+
+  const handleRandomCombination = (index: number) => {
+    const combination: TransparentCombination = {
+      direction: getRandomDirection(),
+      color: getRandomHexColor(),
+      percentage: getRandomPercentage(),
+    };
+    updateCombination("transparent", index, combination);
   };
 
   const handleRemoveCombination = (index: number) => {
@@ -78,10 +92,11 @@ const ColorFormComponentTransparency = () => {
               }
             />
             <IconButton
-              colorScheme="red"
+              colorScheme="blue"
+              variant="outline"
               type="button"
-              onClick={() => handleRemoveCombination(index)}
-              icon={<IconTrash />}
+              onClick={() => handleRandomCombination(index)}
+              icon={<IconShuffle />}
               aria-label="trash"
             />
           </Stack>
