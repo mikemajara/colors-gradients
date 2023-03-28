@@ -4,13 +4,14 @@ import { IconDownload } from "../../icons";
 import GradientBox from "./gradient-box";
 import { useAppStorage } from "../../store";
 import domtoimage from "dom-to-image";
+import { useTransparentStorage } from "../../store/transparent";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
   const {
     transparent: state,
     settings: { blendMode = "unset" },
-  } = useAppStorage();
+  } = useTransparentStorage();
 
   const toast = useToast();
   const canvasRef = useRef(null);

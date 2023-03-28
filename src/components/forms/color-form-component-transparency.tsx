@@ -15,11 +15,12 @@ import {
   getRandomHexColor,
   getRandomPercentage,
 } from "../../utils/color-utils";
+import { useTransparentStorage } from "../../store/transparent";
 
 const ColorFormComponentTransparency = () => {
-  const state = useAppStorage((state) => state.transparent);
+  const state = useTransparentStorage((state) => state.transparent);
   const { addTransparentCombination, removeCombination, updateCombination } =
-    useAppStorage();
+    useTransparentStorage();
 
   const handleAddCombination = () => {
     const combination: TransparentCombination = {
@@ -90,6 +91,14 @@ const ColorFormComponentTransparency = () => {
               setPercentage={(percentage) =>
                 handlePercentageChange(index, percentage)
               }
+            />
+            <IconButton
+              colorScheme="red"
+              variant="outline"
+              type="button"
+              onClick={() => handleRemoveCombination(index)}
+              icon={<IconTrash />}
+              aria-label="trash"
             />
             <IconButton
               colorScheme="blue"
