@@ -7,7 +7,7 @@ import html2canvas from "html2canvas";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
-  const { state } = useAppStorage();
+  const { simple: state } = useAppStorage();
 
   const toast = useToast();
   const canvasRef = useRef(null);
@@ -30,14 +30,16 @@ const GradientComponent = () => {
   };
 
   const generateGradient = (state) => {
-    const gradientString = state.map((combination) => {
-      return `linear-gradient(${combination.direction}, ${combination.color1}, ${combination.color2})`;
+    const gradientString = state?.map(({ direction, color1, color2 }) => {
+      return direction && color1 && color2
+        ? `linear-gradient(${direction}, ${color1}, ${color2})`
+        : ``;
     });
     return gradientString.join(", ");
   };
 
   const gradient = generateGradient(state);
-
+  console.log(`gradient: ${gradient}`);
   return (
     <>
       <Flex
