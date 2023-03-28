@@ -38,10 +38,12 @@ const GradientComponent = () => {
   };
 
   const generateGradient = (state) => {
-    const gradientString = state?.map(({ direction, color, percentage }) => {
-      const percentageNumber = parseInt(percentage.replace("%", ""));
-      return `linear-gradient(${direction}, ${color} ${percentage}, transparent)`;
-    });
+    const gradientString = state?.map(
+      ({ direction, color, percentage, gradientType }) => {
+        const percentageNumber = parseInt(percentage.replace("%", ""));
+        return `${gradientType}(${direction}, ${color} ${percentage}, transparent)`;
+      }
+    );
     return gradientString.join(", ");
   };
   const gradient = generateGradient(state);

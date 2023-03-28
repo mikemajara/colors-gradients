@@ -1,10 +1,6 @@
 import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
-import {
-  useAppStorage,
-  SimpleCombination,
-  TransparentCombination,
-} from "../../store";
+import { TransparentCombination } from "../../store/transparent";
 import ColorInput from "../inputs/color-input";
 import { DirectionInput } from "../inputs/direction-input";
 import { IconAdd, IconShuffle, IconTrash } from "../../icons";
@@ -12,10 +8,12 @@ import PercentageInput from "../inputs/percentage-input";
 import BlendModeSelect from "../inputs/blend-mode-select";
 import {
   getRandomDirection,
+  getRandomGradientType,
   getRandomHexColor,
   getRandomPercentage,
 } from "../../utils/color-utils";
 import { useTransparentStorage } from "../../store/transparent";
+import GradientTypeSelect from "../inputs/gradient-type-select";
 
 const ColorFormComponentTransparency = () => {
   const state = useTransparentStorage((state) => state.transparent);
@@ -24,6 +22,7 @@ const ColorFormComponentTransparency = () => {
 
   const handleAddCombination = () => {
     const combination: TransparentCombination = {
+      gradientType: "linear-gradient",
       direction: "to right",
       color: "#000000",
       percentage: "50%",
@@ -33,6 +32,7 @@ const ColorFormComponentTransparency = () => {
 
   const handleRandomCombination = (index: number) => {
     const combination: TransparentCombination = {
+      gradientType: getRandomGradientType(),
       direction: getRandomDirection(),
       color: getRandomHexColor(),
       percentage: getRandomPercentage(),
@@ -67,11 +67,22 @@ const ColorFormComponentTransparency = () => {
     // console.log(state);
   };
 
+  const handleGradientTypeChange = (gradientType: string, index) => {
+    updateCombination("transparent", index, {
+      ...state[index],
+      gradientType,
+    });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Stack>
         {state?.map((combination, index) => (
           <Stack direction="row" key={index} align="end">
+            <GradientTypeSelect
+              gradientType={combination.gradientType}
+              onChange={(e) => handleGradientTypeChange(e, index)}
+            />
             <DirectionInput
               direction={combination.direction}
               setDirection={(direction) =>

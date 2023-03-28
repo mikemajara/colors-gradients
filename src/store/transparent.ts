@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type TransparentCombination = {
+  gradientType: string;
   direction: string;
   color: string;
   percentage: string;
@@ -25,10 +26,10 @@ export const useTransparentStorage = create(
     (set) => ({
       transparent: [],
       settings: {},
-      addTransparentCombination: (combination: TransparentCombination) => {
+      addTransparentCombination: (combination) => {
         set((state) => ({
           ...state,
-          transparent: [...state.transparent, combination],
+          transparent: [...state.transparent, { ...combination }],
         }));
       },
       removeCombination: (type, index) => {
