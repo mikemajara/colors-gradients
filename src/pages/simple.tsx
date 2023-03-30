@@ -28,7 +28,7 @@ const ColorFormComponent = dynamic(
 const Index = () => {
   return (
     <Container height="100vh">
-      <Navbar w="full">Header</Navbar>
+      <Navbar />
       <Main border="1px solid black">
         <Stack direction={["column"]}>
           <GradientComponent />
