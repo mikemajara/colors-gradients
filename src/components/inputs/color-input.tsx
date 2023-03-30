@@ -29,7 +29,7 @@ const ColorInput = ({ label, color, setColor }) => {
   return (
     <FormControl>
       <HStack align={"center"}>
-        <Text>{label}</Text>
+        {/* <Text>{label}</Text> */}
         <Switch
           size="sm"
           checked={shouldFindClosest}

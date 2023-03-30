@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Flex, Button, useToast } from "@chakra-ui/react";
+import { Flex, Button, useToast, HStack } from "@chakra-ui/react";
 import { IconDownload } from "../../icons";
 import GradientBox from "./gradient-box";
 import { useAppStorage } from "../../store";
 import domtoimage from "dom-to-image";
 import { useTransparentStorage } from "../../store/transparent";
+import CopyButtonComponent from "../inputs/copy-button-component";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
@@ -44,12 +45,9 @@ const GradientComponent = () => {
         return `${gradientType}(${direction}, ${color} ${percentage}, transparent)`;
       }
     );
-    return gradientString.join(", ");
+    return `${gradientString.join(", ")}; background-blend-mode: ${blendMode};`;
   };
   const gradient = generateGradient(state);
-
-  // background: linear-gradient(red, transparent), linear-gradient(to top left, lime, transparent), linear-gradient(to top right, blue, transparent);
-  //   background-blend-mode: color;
 
   return (
     <>
@@ -69,15 +67,16 @@ const GradientComponent = () => {
           ref={canvasRef}
         />
       </Flex>
-      <Flex justify="center" mt={8}>
+      <HStack justify="start" mt={8}>
         <Button
           colorScheme="green"
           leftIcon={<IconDownload />}
           onClick={handleDownload}
         >
-          Download Gradient
+          Download
         </Button>
-      </Flex>
+        <CopyButtonComponent value={gradient} />
+      </HStack>
     </>
   );
 };

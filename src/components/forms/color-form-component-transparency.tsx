@@ -2,7 +2,7 @@ import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
 import { TransparentCombination } from "../../store/transparent";
 import ColorInput from "../inputs/color-input";
-import { DirectionInput } from "../inputs/direction-input";
+import { LinearGradientDirectionInput } from "../inputs/linear-gradient-direction-input";
 import { IconAdd, IconShuffle, IconTrash } from "../../icons";
 import PercentageInput from "../inputs/percentage-input";
 import BlendModeSelect from "../inputs/blend-mode-select";
@@ -14,6 +14,7 @@ import {
 } from "../../utils/color-utils";
 import { useTransparentStorage } from "../../store/transparent";
 import GradientTypeSelect from "../inputs/gradient-type-select";
+import RadialGradientSelect from "../inputs/radial-gradient-direction-input";
 
 const ColorFormComponentTransparency = () => {
   const state = useTransparentStorage((state) => state.transparent);
@@ -74,6 +75,12 @@ const ColorFormComponentTransparency = () => {
     });
   };
 
+  const handleClickFullRandomize = () => {
+    state.forEach((e, i) => handleRandomCombination(i));
+  };
+
+  const handleGradientChange = () => {};
+
   return (
     <form onSubmit={handleSubmit}>
       <Stack>
@@ -83,15 +90,19 @@ const ColorFormComponentTransparency = () => {
               gradientType={combination.gradientType}
               onChange={(e) => handleGradientTypeChange(e, index)}
             />
-            <DirectionInput
-              direction={combination.direction}
-              setDirection={(direction) =>
-                handleDirectionChange(index, direction)
-              }
-              onDirectionChange={(direction) =>
-                handleDirectionChange(index, direction)
-              }
-            />
+            {combination.gradientType == "linear-gradient" ? (
+              <LinearGradientDirectionInput
+                direction={combination.direction}
+                setDirection={(direction) =>
+                  handleDirectionChange(index, direction)
+                }
+                onDirectionChange={(direction) =>
+                  handleDirectionChange(index, direction)
+                }
+              />
+            ) : (
+              <RadialGradientSelect onGradientChange={handleGradientChange} />
+            )}
             <ColorInput
               label={"Color"}
               color={combination.color}
@@ -133,7 +144,7 @@ const ColorFormComponentTransparency = () => {
           >
             Add Combination
           </Button>
-          <Button colorScheme="blue" type="submit">
+          <Button colorScheme="blue" onClick={handleClickFullRandomize}>
             Generate Gradient
           </Button>
         </Stack>

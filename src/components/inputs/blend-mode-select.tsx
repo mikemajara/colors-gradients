@@ -1,12 +1,12 @@
 import React from "react";
 import { Select } from "@chakra-ui/react";
-import { useAppStorage } from "../../store";
+import { useTransparentStorage } from "../../store/transparent";
 
 const BlendModeSelect = () => {
   const {
     updateSettings,
     settings: { blendMode },
-  } = useAppStorage();
+  } = useTransparentStorage();
 
   const blendModes = [
     "normal",

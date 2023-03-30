@@ -6,7 +6,7 @@ import {
   CompositeCombination,
 } from "../../store";
 import ColorInput from "../inputs/color-input";
-import { DirectionInput } from "../inputs/direction-input";
+import { LinearGradientDirectionInput } from "../inputs/linear-gradient-direction-input";
 import { IconAdd, IconTrash } from "../../icons";
 import PercentageInput from "../inputs/percentage-input";
 import BlendModeSelect from "../inputs/blend-mode-select";
@@ -67,7 +67,7 @@ const ColorFormComponentComposite = () => {
       <Stack>
         {state?.map((combination, index) => (
           <Stack direction="row" key={index} align="end">
-            <DirectionInput
+            <LinearGradientDirectionInput
               direction={combination.direction}
               setDirection={(direction) =>
                 handleDirectionChange(index, direction)

@@ -1,6 +1,6 @@
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 
-export const DirectionInput = ({
+export const LinearGradientDirectionInput = ({
   direction,
   setDirection,
   onDirectionChange,
@@ -24,7 +24,7 @@ export const DirectionInput = ({
 
   return (
     <FormControl>
-      <FormLabel>Direction</FormLabel>
+      {/* <FormLabel>Direction</FormLabel> */}
       <Select value={direction} onChange={handleInputChange}>
         {directions.map((dir) => (
           <option key={dir} value={dir}>

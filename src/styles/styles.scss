@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+$item-padding: 5px;
+$item-margin: 5px;
+
+ul.paginate {
+  flex: 1;
+  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+  // border: 1px solid red;
+  display: flex;
+  li {
+    padding-right: $item-padding;
+    padding-left: $item-padding;
+    list-style-type: none;
+    text-align: center;
+    min-width: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: $item-margin;
+    margin-left: $item-margin;
+  }
+}
+
+div[role="tabpanel"] {
+  padding-left: 0;
+  padding-right: 0;
+}
