@@ -12,7 +12,7 @@ const GradientTypeSelect = ({ gradientType, onChange }: Props) => {
       <FormLabel>Gradient type</FormLabel>
       <Select value={gradientType} onChange={(e) => onChange(e.target.value)}>
         <option value="linear-gradient">Linear Gradient</option>
-        <option value="radial-gradient">Radial Gradient</option>
+        {/* <option value="radial-gradient">Radial Gradient</option> */}
       </Select>
     </FormControl>
   );

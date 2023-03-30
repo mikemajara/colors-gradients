@@ -280,7 +280,9 @@ const getRandomRadialGradientDirection = (): string => {
 type GradientType = "linear-gradient" | "radial-gradient";
 
 export const getRandomGradientType = (): GradientType => {
-  const gradientTypes: GradientType[] = ["linear-gradient", "radial-gradient"];
+  const gradientTypes: GradientType[] = [
+    "linear-gradient" /* , "radial-gradient" */,
+  ];
   const randomIndex = Math.floor(Math.random() * gradientTypes.length);
   return gradientTypes[randomIndex];
 };

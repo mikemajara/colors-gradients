@@ -5,7 +5,7 @@ import {
   Flex,
   HStack,
   IconButton,
-  Link,
+  Link as ChakraLink,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
@@ -14,6 +14,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
+import { Link } from "@chakra-ui/next-js";
 
 type Page = {
   label: string;
@@ -45,16 +46,19 @@ export const Navbar = () => {
         />
         <HStack as="nav" spacing={4} display={display}>
           {pages.map((page) => (
-            <NextLink key={page.href} href={page.href} passHref>
-              <Link
-                color={color}
-                as={Button}
-                _hover={{ textDecor: "none" }}
+            <Link
+              key={page.href}
+              href={page.href}
+              color={color}
+              _hover={{ textDecor: "none" }}
+            >
+              <Button
                 fontWeight={router.asPath == page.href ? "bold" : "normal"}
               >
+                {" "}
                 {page.label}
-              </Link>
-            </NextLink>
+              </Button>
+            </Link>
           ))}
         </HStack>
       </Flex>
@@ -78,11 +82,15 @@ export const Navbar = () => {
         >
           <Stack spacing={2}>
             {pages.map((page) => (
-              <NextLink key={page.href} href={page.href} passHref>
-                <Link fontSize="xl" color={color} onClick={onClose}>
-                  {page.label}
-                </Link>
-              </NextLink>
+              <Link
+                key={page.href}
+                href={page.href}
+                fontSize="xl"
+                color={color}
+                onClick={onClose}
+              >
+                <Button>{page.label}</Button>
+              </Link>
             ))}
           </Stack>
         </Box>

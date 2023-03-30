@@ -37,9 +37,7 @@ const Index = () => {
       </Main>
 
       <DarkModeSwitch />
-      <Footer>
-        <Text>Next ❤️ Chakra ❤️ GPT</Text>
-      </Footer>
+      <Footer>{/* <Text>Next ❤️ Chakra ❤️ GPT</Text> */}</Footer>
     </Container>
   );
 };

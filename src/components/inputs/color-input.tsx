@@ -6,20 +6,36 @@ import {
   FormLabel,
   Input,
   Stack,
+  Switch,
+  HStack,
+  Text,
 } from "@chakra-ui/react";
 import { ChromePicker } from "react-color";
 import { getClosestCSSColorName } from "../../utils/color-utils";
 
 const ColorInput = ({ label, color, setColor }) => {
   const [showPicker, setShowPicker] = useState(false);
+  const [shouldFindClosest, setShouldFindClosest] = useState(false);
 
   const handleColorChange = (color) => {
-    setColor(color.hex);
+    if (shouldFindClosest) setColor(getClosestCSSColorName(color.hex));
+    else setColor(color.hex);
+  };
+
+  const toggleClosest = () => {
+    setShouldFindClosest(!shouldFindClosest);
   };
 
   return (
     <FormControl>
-      <FormLabel>{label}</FormLabel>
+      <HStack align={"center"}>
+        <Text>{label}</Text>
+        <Switch
+          size="sm"
+          checked={shouldFindClosest}
+          onChange={toggleClosest}
+        />
+      </HStack>
       <Input
         type="text"
         value={color}
