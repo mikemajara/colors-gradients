@@ -93,15 +93,16 @@ const ColorFormComponentTransparency = () => {
             {combination.gradientType == "linear-gradient" ? (
               <LinearGradientDirectionInput
                 direction={combination.direction}
-                setDirection={(direction) =>
-                  handleDirectionChange(index, direction)
-                }
                 onDirectionChange={(direction) =>
                   handleDirectionChange(index, direction)
                 }
               />
             ) : (
-              <RadialGradientSelect onGradientChange={handleGradientChange} />
+              <RadialGradientSelect
+                onGradientChange={(direction) =>
+                  handleDirectionChange(index, direction)
+                }
+              />
             )}
             <ColorInput
               label={"Color"}

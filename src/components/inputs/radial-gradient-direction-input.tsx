@@ -43,7 +43,7 @@ const RadialGradientSelect = ({
   shapes.forEach((shape) => {
     sizes.forEach((size) => {
       positions.forEach((position) => {
-        const gradient = `radial-gradient(${shape} ${size} at ${position}, white, black)`;
+        const gradient = `${shape} ${size} at ${position}`;
 
         options.push(
           <option key={gradient} value={gradient}>

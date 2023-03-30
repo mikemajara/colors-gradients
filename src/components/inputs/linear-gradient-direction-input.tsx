@@ -2,7 +2,6 @@ import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 
 export const LinearGradientDirectionInput = ({
   direction,
-  setDirection,
   onDirectionChange,
 }) => {
   const directions = [
@@ -18,7 +17,6 @@ export const LinearGradientDirectionInput = ({
 
   const handleInputChange = (event) => {
     const value = event.target.value;
-    setDirection(value);
     onDirectionChange(value);
   };
 
