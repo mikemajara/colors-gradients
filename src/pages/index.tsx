@@ -45,3 +45,11 @@ const Index = () => {
 };
 
 export default Index;
+
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/transparency",
+    },
+  };
+}
