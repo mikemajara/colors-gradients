@@ -69,9 +69,6 @@ const ColorFormComponentComposite = () => {
           <Stack direction="row" key={index} align="end">
             <LinearGradientDirectionInput
               direction={combination.direction}
-              setDirection={(direction) =>
-                handleDirectionChange(index, direction)
-              }
               onDirectionChange={(direction) =>
                 handleDirectionChange(index, direction)
               }

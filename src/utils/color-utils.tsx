@@ -218,7 +218,15 @@ export function getRandomPercentage(): string {
   return `${randomInt}%`;
 }
 
-export const getRandomDirection = (): string => {
+export const getRandomDirection = (
+  type: "linear-gradient" | "radial-gradient"
+): string => {
+  return type == "linear-gradient"
+    ? getRandomLinearGradientDirection()
+    : getRandomRadialGradientDirection();
+};
+
+export const getRandomLinearGradientDirection = (): string => {
   const directions = [
     "to top",
     "to top right",
@@ -231,16 +239,16 @@ export const getRandomDirection = (): string => {
   ];
   return directions[Math.floor(Math.random() * directions.length)];
 };
-type RadialGradientDirection =
-  | "at center"
-  | "at top"
-  | "at top right"
-  | "at right"
-  | "at bottom right"
-  | "at bottom"
-  | "at bottom left"
-  | "at left"
-  | "at top left";
+type RadialGradientDirection = [number, number];
+// | "at center"
+// | "at top"
+// | "at top right"
+// | "at right"
+// | "at bottom right"
+// | "at bottom"
+// | "at bottom left"
+// | "at left"
+// | "at top left";
 
 type RadialGradientShape = "ellipse" | "circle";
 
@@ -251,17 +259,23 @@ type RadialGradientPosition =
   | "farthest-corner";
 
 const getRandomRadialGradientDirection = (): string => {
-  const directions: RadialGradientDirection[] = [
-    "at center",
-    "at top",
-    "at top right",
-    "at right",
-    "at bottom right",
-    "at bottom",
-    "at bottom left",
-    "at left",
-    "at top left",
-  ];
+  function generateRandomDirection(from, to) {
+    const randomNumber1 = Math.floor(Math.random() * (to - from + 1)) + from;
+    const randomNumber2 = Math.floor(Math.random() * (to - from + 1)) + from;
+    return [randomNumber1, randomNumber2].map((e) => `${e}%`).join(" ");
+  }
+
+  // const directions: RadialGradientDirection[] = [
+  //   "at center",
+  //   "at top",
+  //   "at top right",
+  //   "at right",
+  //   "at bottom right",
+  //   "at bottom",
+  //   "at bottom left",
+  //   "at left",
+  //   "at top left",
+  // ];
   const shapes: RadialGradientShape[] = ["ellipse", "circle"];
   const positions: RadialGradientPosition[] = [
     "closest-side",
@@ -269,18 +283,22 @@ const getRandomRadialGradientDirection = (): string => {
     "farthest-side",
     "farthest-corner",
   ];
-  const randomDirection =
-    directions[Math.floor(Math.random() * directions.length)];
   const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+  const randomDirection = generateRandomDirection(30, 70);
+  // directions[Math.floor(Math.random() * directions.length)];
   const randomPosition =
     positions[Math.floor(Math.random() * positions.length)];
-  return `radial-gradient(${randomDirection}, ${randomShape} ${randomPosition})`;
+  if (!randomShape && !randomDirection)
+    return getRandomRadialGradientDirection();
+  return `${randomShape} ${randomPosition} at ${randomDirection}`;
 };
 
 type GradientType = "linear-gradient" | "radial-gradient";
 
 export const getRandomGradientType = (): GradientType => {
-  const gradientTypes: GradientType[] = ["linear-gradient", "radial-gradient"];
+  const gradientTypes: GradientType[] = [
+    /* "linear-gradient", */ "radial-gradient",
+  ];
   const randomIndex = Math.floor(Math.random() * gradientTypes.length);
   return gradientTypes[randomIndex];
 };

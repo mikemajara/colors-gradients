@@ -32,9 +32,10 @@ const ColorFormComponentTransparency = () => {
   };
 
   const handleRandomCombination = (index: number) => {
+    const gradientType = getRandomGradientType();
     const combination: TransparentCombination = {
-      gradientType: getRandomGradientType(),
-      direction: getRandomDirection(),
+      gradientType,
+      direction: getRandomDirection(gradientType),
       color: getRandomHexColor(),
       percentage: getRandomPercentage(),
     };

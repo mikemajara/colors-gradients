@@ -1,6 +1,12 @@
 import { useState } from "react";
-import { IconButton, useClipboard, useToast } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/button";
+import {
+  Text,
+  HStack,
+  IconButton,
+  useClipboard,
+  useToast,
+  Input,
+} from "@chakra-ui/react";
 import { IconCopy } from "../../icons";
 
 interface CopyButtonProps {
@@ -25,7 +31,14 @@ const CopyButtonComponent = ({ value }: CopyButtonProps) => {
   };
 
   return (
-    <IconButton onClick={handleCopyClick} icon={<IconCopy />} aria-label={""} />
+    <HStack w="full">
+      <Input isDisabled value={value} />
+      <IconButton
+        onClick={handleCopyClick}
+        icon={<IconCopy />}
+        aria-label={""}
+      />
+    </HStack>
   );
 };
 

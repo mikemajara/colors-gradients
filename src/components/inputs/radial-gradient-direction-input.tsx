@@ -4,22 +4,16 @@ type RadialGradientSelectProps = Omit<SelectProps, "children"> & {
   onGradientChange: (gradient: string) => void;
 };
 
-const shapes = [
-  "circle",
-  "ellipse",
-  "closest-side",
-  "closest-corner",
-  "farthest-side",
-  "farthest-corner",
-];
+const shapes = ["", "circle", "ellipse"];
 
 const sizes = [
+  "",
   "closest-side",
   "closest-corner",
   "farthest-side",
   "farthest-corner",
-  "contain",
-  "cover",
+  // "contain",
+  // "cover",
 ];
 
 const positions = [
@@ -45,11 +39,12 @@ const RadialGradientSelect = ({
       positions.forEach((position) => {
         const gradient = `${shape} ${size} at ${position}`;
 
-        options.push(
-          <option key={gradient} value={gradient}>
-            {shape}, {size}, at {position}
-          </option>
-        );
+        if (!!shape || !!size)
+          options.push(
+            <option key={gradient} value={gradient}>
+              {shape} {size} at {position}
+            </option>
+          );
       });
     });
   });
