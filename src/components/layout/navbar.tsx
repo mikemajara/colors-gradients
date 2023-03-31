@@ -25,6 +25,7 @@ const pages: Page[] = [
   // { label: "Simple", href: "/simple" },
   // { label: "Composite", href: "/composite" },
   { label: "Generator", href: "/transparency" },
+  { label: "Word Clip", href: "/word-clip" },
 ];
 
 export const Navbar = () => {

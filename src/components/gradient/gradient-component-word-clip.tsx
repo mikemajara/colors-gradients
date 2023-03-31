@@ -10,14 +10,15 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { IconDownload, IconSave } from "../../icons";
-import GradientBox from "./gradient-box";
+import GradientBox, { GradientBoxWordClip } from "./gradient-box";
 import { useAppStorage } from "../../store";
 import domtoimage from "dom-to-image";
 import { useTransparentStorage } from "../../store/transparent";
 import CopyButtonComponent from "../inputs/copy-button-component";
 import { useSavedStorage } from "../../store/saved";
 import { shallow } from "zustand/shallow";
-const GradientComponent = () => {
+
+const GradientComponentWordClip = ({ word }) => {
   const {
     combinations,
     settings,
@@ -87,18 +88,21 @@ const GradientComponent = () => {
       <Stack
         justify="center"
         align="center"
-        h="50vh"
-        borderWidth="1px"
-        borderColor={"gray.700"}
-        borderStyle="solid"
+        minH="50vh"
+        h="auto"
+        // borderWidth="1px"
+        // borderColor={"gray.700"}
+        // borderStyle="solid"
         borderRadius={"xl"}
         overflow="hidden"
       >
-        <GradientBox
+        <GradientBoxWordClip
           gradient={gradient}
           blendMode={blendMode}
           ref={canvasRef}
-        />
+        >
+          {word}
+        </GradientBoxWordClip>
       </Stack>
       <HStack>
         {saved.map((e, i) => (
@@ -138,4 +142,4 @@ const GradientComponent = () => {
   );
 };
 
-export default GradientComponent;
+export default GradientComponentWordClip;
