@@ -18,10 +18,15 @@ import GradientBox from "../components/gradient/gradient-box";
 import { useState } from "react";
 
 import dynamic from "next/dynamic";
-import GradientComponent from "../components/gradient/gradient-component-transparency";
+// import GradientComponent from "../components/gradient/gradient-component-transparency";
 
 const ColorFormComponent = dynamic(
   () => import("../components/forms/color-form-component-transparency"),
+  { ssr: false }
+);
+
+const GradientComponent = dynamic(
+  () => import("../components/gradient/gradient-component-transparency"),
   { ssr: false }
 );
 

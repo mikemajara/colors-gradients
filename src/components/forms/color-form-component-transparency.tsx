@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
-import { TransparentCombination } from "../../store/transparent";
+import { GradientCombination } from "../../store/transparent";
 import ColorInput from "../inputs/color-input";
 import { LinearGradientDirectionInput } from "../inputs/linear-gradient-direction-input";
 import {
@@ -24,26 +24,28 @@ import RadialGradientSelect from "../inputs/radial-gradient-direction-input";
 
 const ColorFormComponentTransparency = () => {
   const state = useTransparentStorage((state) => state.transparent);
-  const { addTransparentCombination, removeCombination, updateCombination } =
+  const { addCombination, removeCombination, updateCombination } =
     useTransparentStorage();
 
   const handleAddCombination = () => {
-    const combination: TransparentCombination = {
+    const combination: GradientCombination = {
       gradientType: "linear-gradient",
       direction: "to right",
       color: "#000000",
       percentage: "50%",
+      hidden: true,
     };
-    addTransparentCombination(combination);
+    addCombination(combination);
   };
 
   const handleRandomCombination = (index: number) => {
     const gradientType = getRandomGradientType();
-    const combination: TransparentCombination = {
+    const combination: GradientCombination = {
       gradientType,
       direction: getRandomDirection(gradientType),
       color: getRandomHexColor(),
       percentage: getRandomPercentage(),
+      hidden: false,
     };
     updateCombination("transparent", index, combination);
   };

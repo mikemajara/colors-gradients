@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type TransparentCombination = {
+export type GradientCombination = {
   gradientType: string;
   direction: string;
   color: string;
@@ -10,14 +10,14 @@ export type TransparentCombination = {
 };
 
 type TransparentStorageType = {
-  transparent: TransparentCombination[];
+  transparent: GradientCombination[];
   settings: Record<string, unknown>;
-  addTransparentCombination: (combination: TransparentCombination) => void;
+  addCombination: (combination: GradientCombination) => void;
   removeCombination: (type: "transparent", index: number) => void;
   updateCombination: (
     type: "transparent",
     index: number,
-    combination: TransparentCombination
+    combination: GradientCombination
   ) => void;
   updateSettings: (newSettings: Record<string, unknown>) => void;
 };
@@ -27,7 +27,7 @@ export const useTransparentStorage = create(
     (set) => ({
       transparent: [],
       settings: {},
-      addTransparentCombination: (combination) => {
+      addCombination: (combination) => {
         set((state) => ({
           ...state,
           transparent: [...state.transparent, { ...combination }],
@@ -41,7 +41,7 @@ export const useTransparentStorage = create(
       },
       updateCombination: (type, index, combination) => {
         set((state) => {
-          const newCombination = combination as TransparentCombination;
+          const newCombination = combination as GradientCombination;
 
           const newState = { ...state };
           newState[type][index] = newCombination;
