@@ -31,6 +31,34 @@ const theme = definePartsStyle({
   },
 });
 
+const figma = definePartsStyle({
+  field: {
+    borderRadius: "4px",
+    borderColor: "gray.300",
+    _hover: {
+      borderColor: "gray.400",
+    },
+    _focus: {
+      borderColor: "blue.500",
+      boxShadow: "0 0 0 1px rgba(37, 99, 235, 0.5)",
+    },
+  },
+  // sizes: {
+  //   md: {
+  //     field: {
+  //       fontSize: "1rem",
+  //       padding: "0.5rem 1rem",
+  //     },
+  //   },
+  // },
+  // defaultProps: {
+  //   size: "md",
+  // },
+});
+
 export const Input = defineMultiStyleConfig({
-  variants: { theme },
+  variants: { theme, figma },
+  defaultProps: {
+    size: "md",
+  },
 });
