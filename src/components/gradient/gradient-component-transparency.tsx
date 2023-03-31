@@ -105,7 +105,6 @@ const GradientComponent = () => {
             onClick={() => {
               removeSavedCombination("saved", i);
             }}
-            _hover={}
           >
             <GradientBoxNoRef
               gradient={generateGradient(e.combinations, e.settings)}
