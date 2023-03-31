@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, IconButton, Stack } from "@chakra-ui/react";
 import { GradientCombination } from "../../store/transparent";
 import ColorInput from "../inputs/color-input";
@@ -83,7 +83,8 @@ const ColorFormComponentTransparency = () => {
     });
   };
 
-  const handleClickFullRandomize = () => {
+  const handleClickFullRandomize = (e) => {
+    e.preventDefault();
     state.forEach((e, i) => handleRandomCombination(i));
   };
 
@@ -114,7 +115,7 @@ const ColorFormComponentTransparency = () => {
           <BlendModeSelect />
         </Stack>
         {state?.map((combination, index) => (
-          <Stack>
+          <Stack key={Math.random()}>
             <ColorInput
               label={"Color"}
               color={combination.color}
