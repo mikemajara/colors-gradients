@@ -98,7 +98,7 @@ const GradientComponentWordClip = ({ word }) => {
       >
         <GradientBoxWordClip
           gradient={gradient}
-          blendMode={blendMode}
+          blendMode={blendMode as string}
           ref={canvasRef}
         >
           {word}

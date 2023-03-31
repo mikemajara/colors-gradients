@@ -9,11 +9,8 @@ const GradientBox = forwardRef((props, ref) => {
   );
 });
 
-export const GradientBoxWordClip = ({
-  gradient,
-  blendMode = "unset",
-  children,
-}) => {
+export const GradientBoxWordClip = forwardRef((props, ref) => {
+  const { gradient, blendMode = "unset", children } = props;
   return (
     <Box
       position="relative"
@@ -31,6 +28,6 @@ export const GradientBoxWordClip = ({
       {children}
     </Box>
   );
-};
+});
 
 export default GradientBox;
