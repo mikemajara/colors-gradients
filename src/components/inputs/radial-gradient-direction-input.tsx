@@ -4,16 +4,15 @@ type RadialGradientSelectProps = Omit<SelectProps, "children"> & {
   onGradientChange: (gradient: string) => void;
 };
 
-const shapes = ["", "circle", "ellipse"];
+const shapes = ["circle", "ellipse"];
 
 const sizes = [
-  "",
   "closest-side",
   "closest-corner",
   "farthest-side",
   "farthest-corner",
-  // "contain",
-  // "cover",
+  "contain",
+  "cover",
 ];
 
 const positions = [

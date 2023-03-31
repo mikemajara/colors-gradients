@@ -28,38 +28,46 @@ const ColorInput = ({ label, color, setColor }) => {
 
   return (
     <FormControl>
-      <HStack align={"center"}>
-        {/* <Text>{label}</Text> */}
-        <Switch
-          size="sm"
-          checked={shouldFindClosest}
-          onChange={toggleClosest}
+      <Stack>
+        <HStack align={"center"}>
+          <Text>Snap to CSS color</Text>
+          <Switch
+            size="sm"
+            checked={shouldFindClosest}
+            onChange={toggleClosest}
+          />
+        </HStack>
+        <Input
+          type="text"
+          value={color}
+          onFocus={() => setShowPicker(!showPicker)}
+          onChange={(e) => setColor(e.target.value)}
         />
-      </HStack>
-      <Input
-        type="text"
-        value={color}
-        onFocus={() => setShowPicker(!showPicker)}
-        onBlur={(e) => {
-          // setShowPicker(false);
-          // handleInputChange(e);
-        }}
-      />
-      {showPicker && (
-        <Stack position="absolute">
-          <Box position={"relative"} zIndex={2}>
-            <chakra.div
-              onClick={(e) => setShowPicker(false)}
-              position="fixed"
-              top={0}
-              left={0}
-              right={0}
-              bottom={0}
-            />
-            <ChromePicker color={color} onChangeComplete={handleColorChange} />
-          </Box>
-        </Stack>
-      )}
+        {showPicker && (
+          <Stack position="absolute" top={16}>
+            <Box
+              position={"relative"}
+              zIndex={2}
+              borderRadius="lg"
+              overflow={"hidden"}
+              border="1px solid black"
+            >
+              <chakra.div
+                onClick={(e) => setShowPicker(false)}
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+              />
+              <ChromePicker
+                color={color}
+                onChangeComplete={handleColorChange}
+              />
+            </Box>
+          </Stack>
+        )}
+      </Stack>
     </FormControl>
   );
 };

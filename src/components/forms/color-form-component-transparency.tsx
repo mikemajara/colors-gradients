@@ -86,52 +86,54 @@ const ColorFormComponentTransparency = () => {
     <form onSubmit={handleSubmit}>
       <Stack>
         {state?.map((combination, index) => (
-          <Stack direction="row" key={index} align="end">
-            <GradientTypeSelect
-              gradientType={combination.gradientType}
-              onChange={(e) => handleGradientTypeChange(e, index)}
-            />
-            {combination.gradientType == "linear-gradient" ? (
-              <LinearGradientDirectionInput
-                direction={combination.direction}
-                onDirectionChange={(direction) =>
-                  handleDirectionChange(index, direction)
-                }
-              />
-            ) : (
-              <RadialGradientSelect
-                onGradientChange={(direction) =>
-                  handleDirectionChange(index, direction)
-                }
-              />
-            )}
+          <Stack>
             <ColorInput
               label={"Color"}
               color={combination.color}
               setColor={(color) => handleColorChange(index, color)}
             />
-            <PercentageInput
-              percentage={combination.percentage}
-              setPercentage={(percentage) =>
-                handlePercentageChange(index, percentage)
-              }
-            />
-            <IconButton
-              colorScheme="red"
-              variant="outline"
-              type="button"
-              onClick={() => handleRemoveCombination(index)}
-              icon={<IconTrash />}
-              aria-label="trash"
-            />
-            <IconButton
-              colorScheme="blue"
-              variant="outline"
-              type="button"
-              onClick={() => handleRandomCombination(index)}
-              icon={<IconShuffle />}
-              aria-label="trash"
-            />
+            <Stack direction="row" key={index} align="end">
+              <GradientTypeSelect
+                gradientType={combination.gradientType}
+                onChange={(e) => handleGradientTypeChange(e, index)}
+              />
+              {combination.gradientType == "linear-gradient" ? (
+                <LinearGradientDirectionInput
+                  direction={combination.direction}
+                  onDirectionChange={(direction) =>
+                    handleDirectionChange(index, direction)
+                  }
+                />
+              ) : (
+                <RadialGradientSelect
+                  onGradientChange={(direction) =>
+                    handleDirectionChange(index, direction)
+                  }
+                />
+              )}
+              <PercentageInput
+                percentage={combination.percentage}
+                setPercentage={(percentage) =>
+                  handlePercentageChange(index, percentage)
+                }
+              />
+              <IconButton
+                colorScheme="red"
+                variant="outline"
+                type="button"
+                onClick={() => handleRemoveCombination(index)}
+                icon={<IconTrash />}
+                aria-label="trash"
+              />
+              <IconButton
+                colorScheme="blue"
+                variant="outline"
+                type="button"
+                onClick={() => handleRandomCombination(index)}
+                icon={<IconShuffle />}
+                aria-label="trash"
+              />
+            </Stack>
           </Stack>
         ))}
         <Stack>
