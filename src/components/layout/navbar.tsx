@@ -22,9 +22,9 @@ type Page = {
 };
 
 const pages: Page[] = [
-  { label: "Simple", href: "/simple" },
-  { label: "Composite", href: "/composite" },
-  { label: "Transparency", href: "/transparency" },
+  // { label: "Simple", href: "/simple" },
+  // { label: "Composite", href: "/composite" },
+  { label: "Generator", href: "/transparency" },
 ];
 
 export const Navbar = () => {
