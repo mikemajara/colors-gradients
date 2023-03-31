@@ -33,7 +33,11 @@ const BlendModeSelect = () => {
   };
 
   return (
-    <Select value={blendMode as string} onChange={handleBlendModeChange}>
+    <Select
+      value={blendMode as string}
+      onChange={handleBlendModeChange}
+      variant="theme"
+    >
       {blendModes.map((mode, index) => (
         <option key={index} value={mode}>
           {mode}

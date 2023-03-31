@@ -39,6 +39,7 @@ const ColorInput = ({ label, color, setColor }) => {
         </HStack>
         <Input
           type="text"
+          variant="theme"
           value={color}
           onFocus={() => setShowPicker(!showPicker)}
           onChange={(e) => setColor(e.target.value)}

@@ -1,5 +1,7 @@
 import { extendTheme, Theme, ThemeConfig } from "@chakra-ui/react";
 import { Button, IconButton } from "./button";
+import { Input } from "./input";
+import { Select } from "./select";
 
 const fonts = {
   mono: `'Menlo', monospace`,
@@ -21,6 +23,8 @@ const theme = extendTheme({
   },
   fonts,
   components: {
+    Select,
+    Input,
     Button,
     IconButton,
   },
