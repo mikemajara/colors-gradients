@@ -2,18 +2,10 @@ import { Select, SelectProps } from "@chakra-ui/react";
 
 type RadialGradientSelectProps = Omit<SelectProps, "children"> & {
   onGradientChange: (gradient: string) => void;
+  direction: string;
 };
 
 const shapes = ["circle", "ellipse"];
-
-const sizes = [
-  "closest-side",
-  "closest-corner",
-  "farthest-side",
-  "farthest-corner",
-  "contain",
-  "cover",
-];
 
 const positions = [
   "center",
@@ -29,23 +21,23 @@ const positions = [
 
 const RadialGradientSelect = ({
   onGradientChange,
+  direction: value,
   ...rest
 }: RadialGradientSelectProps) => {
   const options = [];
 
   shapes.forEach((shape) => {
-    sizes.forEach((size) => {
-      positions.forEach((position) => {
-        const gradient = `${shape} ${size} at ${position}`;
+    // sizes.forEach((size) => {
+    positions.forEach((position) => {
+      const direction = `${shape} at ${position}`;
 
-        if (!!shape || !!size)
-          options.push(
-            <option key={gradient} value={gradient}>
-              {shape} {size} at {position}
-            </option>
-          );
-      });
+      options.push(
+        <option key={direction} value={direction}>
+          {shape} at {position}
+        </option>
+      );
     });
+    // });
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -53,7 +45,7 @@ const RadialGradientSelect = ({
   };
 
   return (
-    <Select onChange={handleChange} {...rest}>
+    <Select onChange={handleChange} {...rest} value={value}>
       {options}
     </Select>
   );

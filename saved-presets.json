@@ -1,0 +1,25 @@
+{
+  "transparent": [
+    {
+      "gradientType": "linear-gradient",
+      "direction": "to bottom",
+      "color": "#0a5293",
+      "percentage": "24%"
+    },
+    {
+      "gradientType": "radial-gradient",
+      "direction": "ellipse at bottom left",
+      "color": "#7e1333",
+      "percentage": "11%"
+    },
+    {
+      "gradientType": "radial-gradient",
+      "direction": "circle at bottom right",
+      "color": "#ffd53c",
+      "percentage": "50%"
+    }
+  ],
+  "settings": {
+    "blendMode": "overlay"
+  }
+}

@@ -27,7 +27,7 @@ const ColorFormComponent = dynamic(
 
 const Index = () => {
   return (
-    <Container height="100vh">
+    <Container minH="100vh">
       <Navbar />
       <Main>
         <Stack direction={["column"]}>

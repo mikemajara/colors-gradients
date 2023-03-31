@@ -6,6 +6,7 @@ import { useAppStorage } from "../../store";
 import domtoimage from "dom-to-image";
 import { useTransparentStorage } from "../../store/transparent";
 import CopyButtonComponent from "../inputs/copy-button-component";
+import Slider2D from "../inputs/slider-2d";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");

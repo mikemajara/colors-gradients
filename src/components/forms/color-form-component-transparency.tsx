@@ -106,6 +106,7 @@ const ColorFormComponentTransparency = () => {
                 />
               ) : (
                 <RadialGradientSelect
+                  direction={combination.direction}
                   onGradientChange={(direction) =>
                     handleDirectionChange(index, direction)
                   }
