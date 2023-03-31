@@ -112,7 +112,7 @@ const GradientComponent = () => {
               handleRecover(e.combinations, e.settings);
             }}
           >
-            <GradientBoxNoRef
+            <GradientBox
               gradient={generateGradient(e.combinations, e.settings)}
               blendMode={e.settings.blendMode}
             />
