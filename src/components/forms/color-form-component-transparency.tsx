@@ -3,7 +3,13 @@ import { Button, IconButton, Stack } from "@chakra-ui/react";
 import { TransparentCombination } from "../../store/transparent";
 import ColorInput from "../inputs/color-input";
 import { LinearGradientDirectionInput } from "../inputs/linear-gradient-direction-input";
-import { IconAdd, IconShuffle, IconTrash } from "../../icons";
+import {
+  IconAdd,
+  IconHide,
+  IconShow,
+  IconShuffle,
+  IconTrash,
+} from "../../icons";
 import PercentageInput from "../inputs/percentage-input";
 import BlendModeSelect from "../inputs/blend-mode-select";
 import {
@@ -80,7 +86,12 @@ const ColorFormComponentTransparency = () => {
     state.forEach((e, i) => handleRandomCombination(i));
   };
 
-  const handleGradientChange = () => {};
+  const handleHideCombination = (index) => {
+    updateCombination("transparent", index, {
+      ...state[index],
+      hidden: !state[index].hidden,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -132,6 +143,13 @@ const ColorFormComponentTransparency = () => {
                 type="button"
                 onClick={() => handleRandomCombination(index)}
                 icon={<IconShuffle />}
+                aria-label="trash"
+              />
+              <IconButton
+                variant="ghost"
+                type="button"
+                onClick={() => handleHideCombination(index)}
+                icon={combination.hidden ? <IconShow /> : <IconHide />}
                 aria-label="trash"
               />
             </Stack>

@@ -6,6 +6,7 @@ export type TransparentCombination = {
   direction: string;
   color: string;
   percentage: string;
+  hidden: boolean;
 };
 
 type TransparentStorageType = {

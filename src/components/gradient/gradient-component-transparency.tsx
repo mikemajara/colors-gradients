@@ -6,7 +6,6 @@ import { useAppStorage } from "../../store";
 import domtoimage from "dom-to-image";
 import { useTransparentStorage } from "../../store/transparent";
 import CopyButtonComponent from "../inputs/copy-button-component";
-import Slider2D from "../inputs/slider-2d";
 
 const GradientComponent = () => {
   const [canvasUrl, setCanvasUrl] = useState("");
@@ -40,12 +39,12 @@ const GradientComponent = () => {
   };
 
   const generateGradient = (state) => {
-    const gradientString = state?.map(
-      ({ direction, color, percentage, gradientType }) => {
+    const gradientString = state
+      ?.filter((e) => !e.hidden)
+      .map(({ direction, color, percentage, gradientType }) => {
         const percentageNumber = parseInt(percentage.replace("%", ""));
-        return `${gradientType}(${direction}, ${color} ${percentage}, transparent)`;
-      }
-    );
+        return `${gradientType}(${direction}, ${color} ${percentage}, transparent 100%)`;
+      });
     return `${gradientString.join(", ")}; background-blend-mode: ${blendMode};`;
   };
   const gradient = generateGradient(state);
