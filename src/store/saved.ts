@@ -22,10 +22,10 @@ export const useSavedStorage = create(
   persist<SavedStorageType>(
     (set) => ({
       saved: [],
-      addSavedCombination: (combination, settings) => {
+      addSavedCombination: (combinations, settings) => {
         set((state) => ({
           ...state,
-          saved: [...state.saved, { combinations: combination, settings }],
+          saved: [...state.saved, { ...{ combinations, settings } }],
         }));
       },
       removeCombination: (type, index) => {

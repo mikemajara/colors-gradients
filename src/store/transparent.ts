@@ -10,41 +10,42 @@ export type GradientCombination = {
 };
 
 type TransparentStorageType = {
-  transparent: GradientCombination[];
+  combinations: GradientCombination[];
   settings: Record<string, unknown>;
   addCombination: (combination: GradientCombination) => void;
-  removeCombination: (type: "transparent", index: number) => void;
-  updateCombination: (
-    type: "transparent",
-    index: number,
-    combination: GradientCombination
-  ) => void;
+  removeCombination: (index: number) => void;
+  updateCombination: (index: number, combination: GradientCombination) => void;
   updateSettings: (newSettings: Record<string, unknown>) => void;
 };
 
 export const useTransparentStorage = create(
   persist<TransparentStorageType>(
     (set) => ({
-      transparent: [],
+      combinations: [],
       settings: {},
       addCombination: (combination) => {
         set((state) => ({
           ...state,
-          transparent: [...state.transparent, { ...combination }],
+          combinations: [...state.combinations, { ...combination }],
         }));
       },
-      removeCombination: (type, index) => {
-        set((state) => ({
-          ...state,
-          [type]: state.transparent.filter((_, i) => i !== index),
-        }));
+      removeCombination: (index) => {
+        set((state) => {
+          console.log(`current state: `, state);
+          const newState = {
+            ...state,
+            combinations: state.combinations.filter((_, i) => i !== index),
+          };
+          console.log(`new state`, newState);
+          return newState;
+        });
       },
-      updateCombination: (type, index, combination) => {
+      updateCombination: (index, combination) => {
         set((state) => {
           const newCombination = combination as GradientCombination;
 
           const newState = { ...state };
-          newState[type][index] = newCombination;
+          newState.combinations[index] = newCombination;
 
           return newState;
         });

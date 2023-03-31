@@ -23,7 +23,7 @@ import GradientTypeSelect from "../inputs/gradient-type-select";
 import RadialGradientSelect from "../inputs/radial-gradient-direction-input";
 
 const ColorFormComponentTransparency = () => {
-  const state = useTransparentStorage((state) => state.transparent);
+  const state = useTransparentStorage((state) => state.combinations);
   const { addCombination, removeCombination, updateCombination } =
     useTransparentStorage();
 
@@ -47,26 +47,26 @@ const ColorFormComponentTransparency = () => {
       percentage: getRandomPercentage(),
       hidden: false,
     };
-    updateCombination("transparent", index, combination);
+    updateCombination(index, combination);
   };
 
   const handleRemoveCombination = (index: number) => {
-    removeCombination("transparent", index);
+    removeCombination(index);
   };
 
   const handleDirectionChange = (index: number, direction: string) => {
-    updateCombination("transparent", index, { ...state[index], direction });
+    updateCombination(index, { ...state[index], direction });
   };
 
   const handleColorChange = (index: number, color: string) => {
-    updateCombination("transparent", index, {
+    updateCombination(index, {
       ...state[index],
       color,
     });
   };
 
   const handlePercentageChange = (index: number, percentage: string) => {
-    updateCombination("transparent", index, {
+    updateCombination(index, {
       ...state[index],
       percentage,
     });
@@ -74,11 +74,10 @@ const ColorFormComponentTransparency = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // console.log(state);
   };
 
   const handleGradientTypeChange = (gradientType: string, index) => {
-    updateCombination("transparent", index, {
+    updateCombination(index, {
       ...state[index],
       gradientType,
     });
@@ -89,7 +88,7 @@ const ColorFormComponentTransparency = () => {
   };
 
   const handleHideCombination = (index) => {
-    updateCombination("transparent", index, {
+    updateCombination(index, {
       ...state[index],
       hidden: !state[index].hidden,
     });
@@ -98,6 +97,22 @@ const ColorFormComponentTransparency = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Stack>
+        <Stack direction={["row"]} align="center">
+          <Button
+            colorScheme="green"
+            type="button"
+            onClick={handleAddCombination}
+            leftIcon={<IconAdd />}
+          >
+            Add Combination
+          </Button>
+          <Button colorScheme="blue" onClick={handleClickFullRandomize}>
+            Generate Gradient
+          </Button>
+        </Stack>
+        <Stack>
+          <BlendModeSelect />
+        </Stack>
         {state?.map((combination, index) => (
           <Stack>
             <ColorInput
@@ -157,22 +172,6 @@ const ColorFormComponentTransparency = () => {
             </Stack>
           </Stack>
         ))}
-        <Stack>
-          <BlendModeSelect />
-        </Stack>
-        <Stack direction={["row"]} align="center">
-          <Button
-            colorScheme="green"
-            type="button"
-            onClick={handleAddCombination}
-            leftIcon={<IconAdd />}
-          >
-            Add Combination
-          </Button>
-          <Button colorScheme="blue" onClick={handleClickFullRandomize}>
-            Generate Gradient
-          </Button>
-        </Stack>
       </Stack>
     </form>
   );

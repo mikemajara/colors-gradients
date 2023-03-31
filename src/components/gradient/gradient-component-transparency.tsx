@@ -19,12 +19,16 @@ import { useSavedStorage } from "../../store/saved";
 import { shallow } from "zustand/shallow";
 const GradientComponent = () => {
   const {
-    transparent: state,
+    combinations,
     settings,
     settings: { blendMode = "unset" },
     removeCombination,
     addCombination,
   } = useTransparentStorage();
+  // const combinations = useTransparentStorage(
+  //   (state) => state.combinations,
+  //   shallow
+  // );
   const { addSavedCombination, removeCombination: removeSavedCombination } =
     useSavedStorage();
   const saved = useSavedStorage((state) => state.saved, shallow);
@@ -53,16 +57,17 @@ const GradientComponent = () => {
   };
 
   const handleSave = () => {
-    addSavedCombination([...state], { ...settings });
+    addSavedCombination([...combinations], { ...settings });
   };
 
-  const handleRecover = (combinations, settings) => {
-    state.forEach((e, i) => removeCombination("transparent", i));
-    combinations.forEach((e, i) => addCombination({ ...e }));
+  const handleRecover = (savedCombinations, settings) => {
+    combinations.forEach((e, i) => {
+      removeCombination(0);
+    });
+    savedCombinations.forEach((e, i) => addCombination(e));
   };
-
+  console.log(`combinations length: `, combinations);
   const generateGradient = (state, settings) => {
-    console.log(`state:`, state);
     let gradientString =
       state
         ?.filter((e) => !e.hidden)
@@ -75,7 +80,7 @@ const GradientComponent = () => {
       gradientString += `background-blend-mode: ${settings.blendMode};`;
     return gradientString;
   };
-  const gradient = generateGradient(state, settings);
+  const gradient = generateGradient(combinations, settings);
 
   return (
     <Stack>
@@ -103,7 +108,8 @@ const GradientComponent = () => {
             borderRadius={"lg"}
             overflow="hidden"
             onClick={() => {
-              removeSavedCombination("saved", i);
+              // removeSavedCombination("saved", i);
+              handleRecover(e.combinations, e.settings);
             }}
           >
             <GradientBoxNoRef
